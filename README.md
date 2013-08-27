@@ -1,9 +1,10 @@
 how to launch:
-1. install apache2+mod_wsgi
-2. install python3
-3. in the end of apache2.conf file add a line:
+1. install apache2+mod_wsgi (for debian install a package libapache2-mod-wsgi-py3)
+2. install python3 and python-webob
+3. install jinja2 (for debian install a package python3-jinja2)
+4. in the end of apache2.conf file add a line:
 WSGIScriptAlias /gyral /home/username/www/hello.wsgi
-4. put hello.wsgi into /home/username/www/
-5. type in the address bar of your browser:
+5. put hello.wsgi into /home/username/www/
+6. type in the address bar of your browser:
 http://localhost/gyral
-6. enjoy
+7. enjoy
