@@ -6,6 +6,7 @@ import inspect
 # include current dir to the path
 folder_path = os.path.split(inspect.getfile(inspect.currentframe()))[0]
 cur_folder = os.path.realpath(os.path.abspath(folder_path))
+cur_dir = cur_folder.split(os.sep)[-1]
 if cur_folder not in sys.path:
     sys.path.insert(0, cur_folder)
 
@@ -30,7 +31,9 @@ from webob import Response
 from testpage.webpage import renderPage
 
 def ShowPage():
-	ans = renderPage()
-	return Response(ans)
+    from core.HtmlLink import HtmlLink
+    links = HtmlLink()
+    ans = renderPage(links,cur_dir)
+    return Response(ans)
 
 application = main_index
