@@ -1,10 +1,18 @@
 from jinja2 import Environment, PackageLoader
-import core.HtmlLink
+from core.db.database import DataBase
+from core.syspath import syspath
 
-def renderPage(links,cur_dir):
+def renderPage(links):
+    # just an example
+    db = DataBase()
+    if db.initBase():
+        if db.insertSample('Hello World!'):
+            res = db.getSample();
+    a = ''
+    for x in res:
+        a += x[0]+'<br/>'
     env = Environment(loader=PackageLoader('testpage.webpage', 'templates'))
     template = env.get_template('template.html')
-    links.addJsLink('http://code.jquery.com/jquery-latest.min.js') # jquery first
-    links.addJsLink(cur_dir+'/testpage/templates/js/script.js')
-    links.addCssLink(cur_dir+'/testpage/templates/css/style.css')
-    return template.render(title='gyral - main',script=links.getJsLinks(),style=links.getCssLinks())
+    links.addJsLink(syspath.BASE_DIR+'/testpage/templates/js/script.js')
+    links.addCssLink(syspath.BASE_DIR+'/testpage/templates/css/style.css')
+    return template.render(title='gyral - main',maintext=a,script=links.getJsLinks(),style=links.getCssLinks())
