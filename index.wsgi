@@ -30,8 +30,8 @@ def main_index(req):
         return ShowPage()
     else:
         # find a file by url, if it is exist
-        f = open(entry_point_path+req.path_info, "r")
-        return Response(f.read())
+        with open(entry_point_path+req.path_info,"r") as f:
+            return Response(f.read())
 
 from webob import Response
 from testpage.webpage import renderPage

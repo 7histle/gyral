@@ -1,9 +1,10 @@
 # singleton for realization of driver
+
+from conf import Config
 class DBDriver():
     def __new__(cls):
         if not hasattr(cls, 'instance'):
             # create configuration object
-            from conf import Config
             conf = Config()
             # get name of database driver from config
             module = __import__('core.db.drivers.'+conf.dbdriver, fromlist=[conf.dbdriver])
