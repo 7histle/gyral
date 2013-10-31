@@ -3,6 +3,7 @@ import sys
 import os
 import inspect
 
+
 entry_point_path = os.path.split(inspect.getfile(inspect.currentframe()))[0]
 cur_folder = os.path.realpath(os.path.abspath(entry_point_path))
 if cur_folder not in sys.path:
@@ -18,6 +19,9 @@ conf = Config()
 
 def webob_wrap(func):
     def wrapped(environ, start_response):
+        if environ['mod_wsgi.process_group'] != '':
+            import signal, os
+            os.kill(os.getpid(), signal.SIGINT)
         req = Request(environ)
         app = func(req)
         return app(environ, start_response)
